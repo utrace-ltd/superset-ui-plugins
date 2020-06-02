@@ -21,7 +21,7 @@ import React, { useEffect, createRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { formatNumber, NumberFormats } from '@superset-ui/number-format';
 import { getTimeFormatter } from '@superset-ui/time-format';
-import { filterXSS } from 'xss';
+//import { filterXSS } from 'xss';
 
 // initialize datatables.net
 import $ from 'jquery';
@@ -39,7 +39,7 @@ if (!dt.$) {
 }
 
 const { PERCENT_3_POINT } = NumberFormats;
-const isProbablyHTML = (text: string) => /<[^>]+>/.test(text);
+//const isProbablyHTML = (text: string) => /<[^>]+>/.test(text);
 
 export default function ReactDataTable(props: DataTableProps) {
   const {
@@ -105,6 +105,10 @@ export default function ReactDataTable(props: DataTableProps) {
     $('tr', root).css('display', '');
   }
 
+  function endsWith(str: string, suffix: string) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  }  
+
   /**
    * Format text for cell value
    */
@@ -112,8 +116,11 @@ export default function ReactDataTable(props: DataTableProps) {
     if (key === '__timestamp') {
       return formatTimestamp(val);
     }
+    if (endsWith(key, '_date')) {
+      return new Date(val as string).toLocaleDateString();
+    }
     if (typeof val === 'string') {
-      return filterXSS(val, { stripIgnoreTag: true });
+      return val; //return filterXSS(val, { stripIgnoreTag: true });
     }
     if (percentMetricsSet.has(key)) {
       // in case percent metric can specify percent format in the future
@@ -231,7 +238,7 @@ export default function ReactDataTable(props: DataTableProps) {
               const val = record[key];
               const keyIsMetric = metricsSet.has(key);
               const text = cellText(key, format, val);
-              const isHtml = !keyIsMetric && isProbablyHTML(text);
+              const isHtml = !keyIsMetric && false; //isProbablyHTML(text);
               return (
                 <td
                   key={key}
