@@ -77,8 +77,7 @@
     "babel:cjs": "nimbus babel --clean ",
     "babel:esm": "nimbus babel --clean --esm",
     "build:assets": "node ./scripts/buildAssets.js",
-    "type": "nimbus typescript --build --reference-workspaces",
-    "prepare": "npm run build"
+    "type": "nimbus typescript --build --reference-workspaces"
   },
   "nimbus": {
     "drivers": [
