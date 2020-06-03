@@ -107,14 +107,14 @@ export default function ReactDataTable(props: DataTableProps) {
 
   function endsWith(str: string, suffix: string) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
-  }  
+  }
 
   /**
    * Format text for cell value
    */
   function cellText(key: string, format: string | undefined, val: unknown) {
     if (key === '__timestamp') {
-      return formatTimestamp(val);
+      return formatTimestamp(val as Date);
     }
     if (endsWith(key, '_date')) {
       return new Date(val as string).toLocaleDateString();

@@ -74,10 +74,10 @@
   "scripts": {
     "build": "yarn babel && yarn type && yarn build:assets",
     "babel": "yarn babel:cjs && yarn babel:esm",
-    "babel:cjs": "nimbus babel --clean ",
+    "babel:cjs": "nimbus babel --clean",
     "babel:esm": "nimbus babel --clean --esm",
     "build:assets": "node ./scripts/buildAssets.js",
-    "type": "nimbus typescript --build --reference-workspaces"
+    "type": "nimbus typescript --build"
   },
   "nimbus": {
     "drivers": [
@@ -148,5 +148,8 @@
         "emitDeclarationOnly": true
       }
     }
-  }  
+  },
+  "workspaces": [
+    "."
+  ]    
 }

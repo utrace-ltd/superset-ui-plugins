@@ -2,9 +2,10 @@
 const fg = require('fast-glob');
 const fs = require('fs-extra');
 
-const packages = fg.sync([`packages/${process.argv[2] || '*'}`], {
-  onlyDirectories: true,
-});
+const packages = ['.'];
+// fg.sync([`packages/${process.argv[2] || '*'}`], {
+//   onlyDirectories: true,
+// });
 
 console.log('Copying asset files from `src` to {lib,esm}...');
 packages.forEach(pkg => {

@@ -3,7 +3,7 @@
  */
 const { spawnSync, spawn } = require('child_process');
 
-const glob = process.argv[2];
+const glob = 'legacy-plugin-chart-table'; //process.argv[2];
 const extraArgs = process.argv.slice(2);
 
 process.env.PATH = `./node_modules/.bin:${process.env.PATH}`;
@@ -19,10 +19,10 @@ const run = (cmd) => {
 };
 
 if (glob) {
-  run(`nimbus prettier packages/${glob}/{src,test}/**/*.{js,jsx,ts,tsx,css}"`);
+  run(`nimbus prettier ./{src,test}/**/*.{js,jsx,ts,tsx,css}"`);
   // lint is slow, so not turning it on by default
   if (extraArgs.includes('--lint')) {
-    run(`nimbus eslint packages/${glob}/{src,test}`);
+    run(`nimbus eslint ./{src,test}`);
   }
   run(`nimbus babel --clean --workspaces="@superset-ui/${glob}"`);
   run(`nimbus babel --clean --workspaces="@superset-ui/${glob}" --esm`);
